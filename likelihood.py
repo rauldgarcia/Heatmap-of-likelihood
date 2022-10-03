@@ -7,8 +7,9 @@ import math
 
 #calculo de likelihood
 def ml (mu,sigma,xi):
+    suma=0
     for i in range(10):
-        suma=((xi[i]-mu)**2)/(sigma**2)
+        suma=((xi[i]-mu)**2)/(sigma**2)+suma
         
     expo=math.exp(-0.5*suma)
     aux=1/((2*math.pi*(sigma**2))**5)
@@ -92,18 +93,18 @@ for i in range (10):
 mus=np.array([])
 for i in range(25,66,2):
     mus=np.append(mus,i/10)
-
+print(mus)
 sigmas=np.array([])
 for i in range(0,21,1):
     sigmas=np.append(sigmas,i/10)
 
 mls=np.zeros((20,20))
-for i in range(1,20,1):
+for i in range (1,20,1) :
     for j in range(1,20,1):
         mls[i][j]=ml(mus[i],sigmas[j],nums)
 
 plt.subplot(2,2,4)
-sns.heatmap(mls,vmin=0,vmax=0.001,xticklabels=False,yticklabels=False)
+sns.heatmap(mls)
 plt.scatter((mux-2.5)*5,sigmax*10,color='blue')
 plt.scatter((mup-2.5)*5,sigmap*10,color='green')
 mu=str('μ=')
