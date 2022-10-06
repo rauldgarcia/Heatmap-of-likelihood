@@ -91,29 +91,29 @@ for i in range (10):
 
 #CREACION DE MAPA DE CALOR DE LIKELIHOOD
 mus=np.array([])
-for i in range(25,66,2):
-    mus=np.append(mus,i/10)
-print(mus)
-sigmas=np.array([])
-for i in range(0,21,1):
-    sigmas=np.append(sigmas,i/10)
+for i in range(0,1001,1):
+    mus=np.append(mus,(i*0.004)+2.5)
 
-mls=np.zeros((20,20))
-for i in range (1,20,1) :
-    for j in range(1,20,1):
+sigmas=np.array([])
+for i in range(0,1001,1):
+    sigmas=np.append(sigmas,i*0.002)
+
+mls=np.zeros((1000,1000))
+for i in range (1,1000,1) :
+    for j in range(1,1000,1):
         mls[i][j]=ml(mus[i],sigmas[j],nums)
 
 plt.subplot(2,2,4)
 sns.heatmap(mls)
-plt.scatter((mux-2.5)*5,sigmax*10,color='blue')
-plt.scatter((mup-2.5)*5,sigmap*10,color='green')
+plt.scatter((mux-2.5)*250,sigmax*500,color='blue')
+plt.scatter((mup-2.5)*250,sigmap*500,color='green')
 mu=str('μ=')
 muc=repr(round(mup,2))
 sigc=repr(round(sigmap,2))
 sig=str('σ=')
 pt=mu+muc+sig+sigc
 plt.legend(['μ=5 σ=1.5',pt])
-plt.xlim(1,20)
-plt.ylim(1,20)
+plt.xlim(1,1000)
+plt.ylim(1,1000)
 plt.title('LIKELIHOOD')
 plt.show()
